@@ -1,4 +1,4 @@
-package cotuba.reader;
+package cotuba.cli;
 
 import cotuba.exception.IllegalParameterException;
 import cotuba.hardcode.Formato;

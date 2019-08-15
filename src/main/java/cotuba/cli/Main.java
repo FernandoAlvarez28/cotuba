@@ -1,7 +1,8 @@
-package cotuba;
+package cotuba.cli;
 
+import cotuba.application.Cotuba;
 import cotuba.exception.IllegalParameterException;
-import cotuba.reader.LeitorOpcoesCLI;
+import cotuba.cli.LeitorOpcoesCLI;
 
 public class Main {
 
