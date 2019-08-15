@@ -46,9 +46,9 @@ public class LeitorOpcoesCLI {
 			diretorioDosMD = Paths.get(StringUtils.EMPTY);
 		}
 
-		final String format = cmd.getOptionValue("format");
-		if (StringUtils.isNotEmpty(format)) {
-			formato = EnumUtils.getEnum(Formato.class, format.toUpperCase());
+		final String format = StringUtils.upperCase(cmd.getOptionValue("format"));
+		if (EnumUtils.isValidEnum(Formato.class, format)) {
+			formato = EnumUtils.getEnum(Formato.class, format);
 		} else {
 			throw new IllegalParameterException("O formato não é valido!", options);
 		}
