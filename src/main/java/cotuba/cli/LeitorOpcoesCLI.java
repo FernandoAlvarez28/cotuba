@@ -67,21 +67,21 @@ public class LeitorOpcoesCLI {
 	}
 
 	private Options gerarOptions() {
-		Options options = new Options();
+		Options newOptions = new Options();
 
-		options.addOption(new Option("d", "dir", true,
+		newOptions.addOption(new Option("d", "dir", true,
 				"Diretório que contem os arquivos md. Default: diretório atual."));
 
-		options.addOption(new Option("f", "format", true,
+		newOptions.addOption(new Option("f", "format", true,
 				"Formato de saída do ebook. Pode ser: pdf ou epub. Default: pdf"));
 
-		options.addOption(new Option("o", "output", true,
+		newOptions.addOption(new Option("o", "output", true,
 				"Arquivo de saída do ebook. Default: book.{formato}."));
 
-		options.addOption(new Option("v", "verbose", false,
+		newOptions.addOption(new Option("v", "verbose", false,
 				"Habilita modo verboso."));
 
-		return options;
+		return newOptions;
 	}
 
 	private Options getOptions() {
