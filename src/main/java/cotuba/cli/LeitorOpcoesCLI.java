@@ -23,47 +23,63 @@ public class LeitorOpcoesCLI {
 	private final boolean modoVerboso;
 
 	public LeitorOpcoesCLI(String[] args) throws IllegalParameterException {
-
 		this.options = this.gerarOptions();
 
-		final CommandLine cmd;
+		final CommandLine cmd = obterArgumentos(args);
 
+		this.diretorioDosMD = obterDiretorioDaFonteFornecido(cmd.getOptionValue("dir"));
+		this.formato = obterFormatoFornecido(cmd.getOptionValue("format"));
+		this.arquivoDeSaida = obterCaminhoDoArquivoDeSaidaFornecido(cmd.getOptionValue("output"), this.formato);
+
+		modoVerboso = cmd.hasOption("verbose");
+	}
+
+	private CommandLine obterArgumentos(String[] args) throws IllegalParameterException {
 		try {
 			final CommandLineParser cmdParser = new DefaultParser();
-			cmd = cmdParser.parse(options, args);
+			return cmdParser.parse(options, args);
 		} catch (ParseException e) {
 			throw new IllegalParameterException(e.getMessage(), options);
 		}
+	}
 
-		String nomeDoDiretorioDosMD = cmd.getOptionValue("dir");
+	private Path obterDiretorioDaFonteFornecido(String diretorioFornecido) throws IllegalParameterException {
 
-		if (nomeDoDiretorioDosMD != null) {
-			diretorioDosMD = Paths.get(nomeDoDiretorioDosMD);
-			if (!diretorioDosMD.toFile().isDirectory()) {
-				throw new IllegalParameterException(nomeDoDiretorioDosMD + " não é um diretório.", options);
+		if (StringUtils.isNotBlank(diretorioFornecido)) {
+			final Path diretorioResultado = Paths.get(diretorioFornecido);
+
+			if (!diretorioResultado.toFile().isDirectory()) {
+				throw new IllegalParameterException(diretorioFornecido + " não é um diretório.", options);
 			}
-		} else {
-			diretorioDosMD = Paths.get(StringUtils.EMPTY);
+			return diretorioResultado;
 		}
 
-		final String format = StringUtils.upperCase(cmd.getOptionValue("format"));
-		if (EnumUtils.isValidEnum(Formato.class, format)) {
-			formato = EnumUtils.getEnum(Formato.class, format);
-		} else {
-			throw new IllegalParameterException("O formato não é valido!", options);
+		return Paths.get(StringUtils.EMPTY);
+	}
+
+	private Formato obterFormatoFornecido(String formatoFornecido) throws IllegalParameterException {
+		final Formato formatoResultado = EnumUtils.getEnum(Formato.class, StringUtils.upperCase(formatoFornecido));
+
+		if (formatoResultado != null) {
+			return formatoResultado;
 		}
 
-		String nomeDoArquivoDeSaidaDoEbook = cmd.getOptionValue("output");
-		if (nomeDoArquivoDeSaidaDoEbook != null) {
-			arquivoDeSaida = Paths.get(nomeDoArquivoDeSaidaDoEbook);
-			if (arquivoDeSaida.toFile().exists() && arquivoDeSaida.toFile().isDirectory()) {
-				throw new IllegalParameterException(nomeDoArquivoDeSaidaDoEbook + " é um diretório.", options);
+		throw new IllegalParameterException("O formato não é valido!", options);
+	}
+
+	private Path obterCaminhoDoArquivoDeSaidaFornecido(String nomeFornecido, Formato formato) throws IllegalParameterException {
+
+		if (StringUtils.isNotEmpty(nomeFornecido)) {
+			final Path caminhoResultado = Paths.get(nomeFornecido);
+
+			if (caminhoResultado.toFile().exists() && caminhoResultado.toFile().isDirectory()) {
+				throw new IllegalParameterException(nomeFornecido + " é um diretório.", options);
 			}
-		} else {
-			arquivoDeSaida = Paths.get("book." + formato.toLowerCase());
+
+			return caminhoResultado;
 		}
 
-		modoVerboso = cmd.hasOption("verbose");
+		return Paths.get("book." + formato.toLowerCase());
 	}
 
 	private Options gerarOptions() {
