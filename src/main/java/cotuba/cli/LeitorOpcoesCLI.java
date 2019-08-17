@@ -1,5 +1,6 @@
 package cotuba.cli;
 
+import cotuba.application.ParametrosCotuba;
 import cotuba.exception.IllegalParameterException;
 import cotuba.hardcode.Formato;
 import org.apache.commons.cli.CommandLine;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class LeitorOpcoesCLI {
+public class LeitorOpcoesCLI implements ParametrosCotuba {
 
 	private final Options options;
 	private final Path diretorioDosMD;
@@ -104,14 +105,17 @@ public class LeitorOpcoesCLI {
 		return options;
 	}
 
+	@Override
 	public Path getDiretorioDosMD() {
 		return diretorioDosMD;
 	}
 
+	@Override
 	public Formato getFormato() {
 		return formato;
 	}
 
+	@Override
 	public Path getArquivoDeSaida() {
 		return arquivoDeSaida;
 	}
