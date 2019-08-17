@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MdRendererImpl implements MdRenderer {
+public class RenderizadorMdImpl implements RenderizadorMd {
 
 	private static final PathMatcher MATCHER = FileSystems.getDefault().getPathMatcher("glob:**/*.md");
 

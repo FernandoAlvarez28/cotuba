@@ -5,10 +5,10 @@ import cotuba.domain.Capitulo;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface MdRenderer {
+public interface RenderizadorMd {
 
-	static MdRenderer criarInstanciaPadrao() {
-		return new MdRendererImpl();
+	static RenderizadorMd criarInstanciaPadrao() {
+		return new RenderizadorMdImpl();
 	}
 
 	List<Capitulo> renderizarMdParaHtml(Path diretorioDosMd);
