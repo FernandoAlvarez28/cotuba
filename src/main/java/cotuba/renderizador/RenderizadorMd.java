@@ -8,7 +8,7 @@ import java.util.List;
 public interface RenderizadorMd {
 
 	static RenderizadorMd criarInstanciaPadrao() {
-		return new RenderizadorMdImpl();
+		return new RenderizadorMdComCommonMark();
 	}
 
 	List<Capitulo> renderizarMdParaHtml(Path diretorioDosMd);

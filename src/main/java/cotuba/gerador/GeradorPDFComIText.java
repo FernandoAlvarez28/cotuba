@@ -14,7 +14,7 @@ import cotuba.domain.Ebook;
 import java.nio.file.Files;
 import java.util.List;
 
-public class GeradorPDF implements Gerador {
+public class GeradorPDFComIText implements Gerador {
 
 	@Override
 	public void gerarArquivo(Ebook ebook) {

@@ -7,10 +7,10 @@ public interface Gerador {
 
 	static Gerador criarInstanciaDeAcordoComFormato(Formato formato) {
 		if (Formato.PDF.equals(formato)) {
-			return new GeradorPDF();
+			return new GeradorPDFComIText();
 
 		} else if (Formato.EPUB.equals(formato)) {
-			return new GeradorEPUB();
+			return new GeradorEPUBComEpublib();
 
 		} else {
 			throw new RuntimeException("Formato do ebook inválido: " + formato);

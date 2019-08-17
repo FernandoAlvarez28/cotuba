@@ -10,7 +10,7 @@ import nl.siegmann.epublib.service.MediatypeService;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class GeradorEPUB implements Gerador {
+public class GeradorEPUBComEpublib implements Gerador {
 
 	@Override
 	public void gerarArquivo(Ebook ebook) {
