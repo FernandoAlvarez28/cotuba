@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -28,9 +29,9 @@ public class LeitorOpcoesCLI implements ParametrosCotuba {
 
 		final CommandLine cmd = obterArgumentos(args);
 
-		this.diretorioDosMD = obterDiretorioDaFonteFornecido(cmd.getOptionValue("dir"));
-		this.formato = obterFormatoFornecido(cmd.getOptionValue("format"));
-		this.arquivoDeSaida = obterCaminhoDoArquivoDeSaidaFornecido(cmd.getOptionValue("output"), this.formato);
+		this.diretorioDosMD = obterParametroDiretorioDaFonte(cmd.getOptionValue("dir"));
+		this.formato = obterParametroFormato(cmd.getOptionValue("format"));
+		this.arquivoDeSaida = obterParametroCaminhoDoArquivoDeSaida(cmd.getOptionValue("output"), this.formato);
 
 		modoVerboso = cmd.hasOption("verbose");
 	}
@@ -44,13 +45,16 @@ public class LeitorOpcoesCLI implements ParametrosCotuba {
 		}
 	}
 
-	private Path obterDiretorioDaFonteFornecido(String diretorioFornecido) throws IllegalParameterException {
+	private Path obterParametroDiretorioDaFonte(String parametroDiretorio) throws IllegalParameterException {
 
-		if (StringUtils.isNotBlank(diretorioFornecido)) {
-			final Path diretorioResultado = Paths.get(diretorioFornecido);
+		if (StringUtils.isNotBlank(parametroDiretorio)) {
+			final Path diretorioResultado = Paths.get(parametroDiretorio);
 
-			if (!diretorioResultado.toFile().isDirectory()) {
-				throw new IllegalParameterException(diretorioFornecido + " não é um diretório.", options);
+			final File file = diretorioResultado.toFile();
+			if (!file.exists()) {
+				throw new IllegalParameterException("Entrada \"" + parametroDiretorio + "\" não existe.", options);
+			} else if (!file.isDirectory()) {
+				throw new IllegalParameterException("Entrada \"" + parametroDiretorio + "\" não é um diretório.", options);
 			}
 			return diretorioResultado;
 		}
@@ -58,8 +62,8 @@ public class LeitorOpcoesCLI implements ParametrosCotuba {
 		return Paths.get(StringUtils.EMPTY);
 	}
 
-	private Formato obterFormatoFornecido(String formatoFornecido) throws IllegalParameterException {
-		final Formato formatoResultado = EnumUtils.getEnum(Formato.class, StringUtils.upperCase(formatoFornecido));
+	private Formato obterParametroFormato(String parametroFormato) throws IllegalParameterException {
+		final Formato formatoResultado = EnumUtils.getEnum(Formato.class, StringUtils.upperCase(parametroFormato));
 
 		if (formatoResultado != null) {
 			return formatoResultado;
@@ -68,13 +72,16 @@ public class LeitorOpcoesCLI implements ParametrosCotuba {
 		throw new IllegalParameterException("O formato não é valido!", options);
 	}
 
-	private Path obterCaminhoDoArquivoDeSaidaFornecido(String nomeFornecido, Formato formato) throws IllegalParameterException {
+	private Path obterParametroCaminhoDoArquivoDeSaida(String parametroNome, Formato formato) throws IllegalParameterException {
 
-		if (StringUtils.isNotEmpty(nomeFornecido)) {
-			final Path caminhoResultado = Paths.get(nomeFornecido);
+		if (StringUtils.isNotEmpty(parametroNome)) {
+			final Path caminhoResultado = Paths.get(parametroNome);
 
-			if (caminhoResultado.toFile().exists() && caminhoResultado.toFile().isDirectory()) {
-				throw new IllegalParameterException(nomeFornecido + " é um diretório.", options);
+			final File file = caminhoResultado.toFile();
+			if (file.isDirectory()) {
+				throw new IllegalParameterException("Saída \"" + parametroNome + "\" é um diretório.", options);
+			} else if (file.exists()) {
+				throw new IllegalParameterException("Saída \"" + parametroNome + "\" já existe.", options);
 			}
 
 			return caminhoResultado;
