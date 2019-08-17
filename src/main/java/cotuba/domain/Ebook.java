@@ -1,6 +1,7 @@
 package cotuba.domain;
 
 import cotuba.application.gerador.Gerador;
+import cotuba.application.gerador.GeradorFactory;
 import cotuba.hardcode.Formato;
 
 import java.nio.file.Path;
@@ -26,7 +27,7 @@ public class Ebook {
 	}
 
 	public Gerador getGerador() {
-		return Gerador.criarInstanciaDeAcordoComFormato(this.formato);
+		return GeradorFactory.getGerador(this.formato);
 	}
 
 	public Formato getFormato() {
