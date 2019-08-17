@@ -1,4 +1,4 @@
-package cotuba.renderer;
+package cotuba.renderizador;
 
 import cotuba.domain.Capitulo;
 

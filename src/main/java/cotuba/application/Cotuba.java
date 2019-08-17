@@ -4,7 +4,7 @@ import cotuba.cli.LeitorOpcoesCLI;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
 import cotuba.gerador.Gerador;
-import cotuba.renderer.MdRenderer;
+import cotuba.renderizador.MdRenderer;
 
 import java.util.List;
 
