@@ -1,6 +1,8 @@
-package cotuba.gerador;
+package cotuba.application.gerador;
 
 import cotuba.domain.Ebook;
+import cotuba.gerador.GeradorEPUBComEpublib;
+import cotuba.gerador.GeradorPDFComIText;
 import cotuba.hardcode.Formato;
 
 public interface Gerador {

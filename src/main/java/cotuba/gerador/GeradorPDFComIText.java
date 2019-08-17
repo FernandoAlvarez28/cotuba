@@ -8,6 +8,7 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.AreaBreakType;
+import cotuba.application.gerador.Gerador;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
 

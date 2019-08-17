@@ -3,8 +3,8 @@ package cotuba.application;
 import cotuba.cli.LeitorOpcoesCLI;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
-import cotuba.gerador.Gerador;
-import cotuba.renderizador.RenderizadorMd;
+import cotuba.application.gerador.Gerador;
+import cotuba.application.renderizador.RenderizadorMd;
 
 import java.util.List;
 

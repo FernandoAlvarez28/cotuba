@@ -1,5 +1,6 @@
 package cotuba.gerador;
 
+import cotuba.application.gerador.Gerador;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
 import nl.siegmann.epublib.domain.Book;

@@ -1,6 +1,7 @@
-package cotuba.renderizador;
+package cotuba.application.renderizador;
 
 import cotuba.domain.Capitulo;
+import cotuba.renderizador.RenderizadorMdComCommonMark;
 
 import java.nio.file.Path;
 import java.util.List;

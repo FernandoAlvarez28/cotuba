@@ -1,6 +1,6 @@
 package cotuba.domain;
 
-import cotuba.gerador.Gerador;
+import cotuba.application.gerador.Gerador;
 import cotuba.hardcode.Formato;
 
 import java.nio.file.Path;
