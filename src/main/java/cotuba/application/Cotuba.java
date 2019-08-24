@@ -4,6 +4,7 @@ import cotuba.application.gerador.Gerador;
 import cotuba.application.renderizador.RenderizadorMd;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
+import cotuba.plugin.PosGeracaoEbookLoader;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class Cotuba {
 		final Gerador gerador = ebook.getGerador();
 
 		gerador.gerarArquivo(ebook);
+
+		PosGeracaoEbookLoader.executarImplementacoes(ebook);
 	}
 
 }
