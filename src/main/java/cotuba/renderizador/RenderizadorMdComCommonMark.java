@@ -2,6 +2,7 @@ package cotuba.renderizador;
 
 import cotuba.application.renderizador.RenderizadorMd;
 import cotuba.domain.Capitulo;
+import cotuba.tema.AplicadorTema;
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
@@ -9,6 +10,7 @@ import org.commonmark.node.Text;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -29,8 +31,10 @@ public class RenderizadorMdComCommonMark implements RenderizadorMd {
 		final List<Path> arquivosMD = this.listarArquivos(diretorioDosMd);
 		final List<Capitulo> capitulos = new ArrayList<>(arquivosMD.size());
 
+		final AplicadorTema aplicadorTema = new AplicadorTema();
+
 		for (Path arquivoMD : arquivosMD) {
-			capitulos.add(this.gerarCapitulo(arquivoMD));
+			capitulos.add(this.gerarCapitulo(arquivoMD, aplicadorTema));
 		}
 
 		return capitulos;
@@ -45,7 +49,7 @@ public class RenderizadorMdComCommonMark implements RenderizadorMd {
 		}
 	}
 
-	private Capitulo gerarCapitulo(Path arquivoMD) {
+	private Capitulo gerarCapitulo(Path arquivoMD, @Nullable AplicadorTema aplicadorTema) {
 
 		final Capitulo capitulo = new Capitulo();
 		final Node document = this.parsearDocumento(arquivoMD, capitulo);
@@ -53,6 +57,10 @@ public class RenderizadorMdComCommonMark implements RenderizadorMd {
 		try {
 			final HtmlRenderer renderer = HtmlRenderer.builder().build();
 			capitulo.setConteudoHtml(renderer.render(document));
+
+			if (aplicadorTema != null) {
+				aplicadorTema.aplicarTema(capitulo);
+			}
 
 		} catch (Exception ex) {
 			throw new RuntimeException("Erro ao renderizar para HTML o arquivo " + arquivoMD, ex);
