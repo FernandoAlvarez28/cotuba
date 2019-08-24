@@ -1,4 +1,4 @@
-package cotuba.plugin;
+package cotuba.plugin.tema;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cotuba.plugin;
+package cotuba.plugin.posgeracao;
 
 import cotuba.domain.Ebook;
 

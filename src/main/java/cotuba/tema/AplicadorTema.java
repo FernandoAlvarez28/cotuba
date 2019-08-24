@@ -1,7 +1,7 @@
 package cotuba.tema;
 
 import cotuba.domain.Capitulo;
-import cotuba.plugin.TemaLoader;
+import cotuba.plugin.tema.TemaLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

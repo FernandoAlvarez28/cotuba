@@ -4,7 +4,7 @@ import cotuba.application.gerador.Gerador;
 import cotuba.application.renderizador.RenderizadorMd;
 import cotuba.domain.Capitulo;
 import cotuba.domain.Ebook;
-import cotuba.plugin.PosGeracaoEbookLoader;
+import cotuba.plugin.posgeracao.PosGeracaoEbookLoader;
 
 import java.util.List;
 

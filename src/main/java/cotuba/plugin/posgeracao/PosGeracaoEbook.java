@@ -1,6 +1,6 @@
-package cotuba.plugin;
+package cotuba.plugin.posgeracao;
 
-import cotuba.domain.Ebook;
+import cotuba.plugin.Ebook;
 
 public interface PosGeracaoEbook {
 

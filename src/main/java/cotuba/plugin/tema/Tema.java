@@ -1,4 +1,4 @@
-package cotuba.plugin;
+package cotuba.plugin.tema;
 
 public interface Tema {
 
