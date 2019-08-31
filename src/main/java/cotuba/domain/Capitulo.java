@@ -1,35 +1,22 @@
 package cotuba.domain;
 
-public class Capitulo implements cotuba.plugin.Capitulo {
+public class Capitulo {
 
-	private String titulo;
+	private final String titulo;
 
-	private String conteudoHtml;
-
-	public Capitulo() {
-	}
+	private final String conteudoHtml;
 
 	public Capitulo(String titulo, String conteudoHtml) {
 		this.titulo = titulo;
 		this.conteudoHtml = conteudoHtml;
 	}
 
-	@Override
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	@Override
 	public String getConteudoHtml() {
 		return conteudoHtml;
-	}
-
-	public void setConteudoHtml(String conteudoHtml) {
-		this.conteudoHtml = conteudoHtml;
 	}
 
 }

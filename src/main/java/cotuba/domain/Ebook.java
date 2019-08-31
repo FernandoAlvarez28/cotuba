@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ebook implements cotuba.plugin.Ebook {
+public class Ebook {
 
 	private final Formato formato;
 
@@ -26,12 +26,10 @@ public class Ebook implements cotuba.plugin.Ebook {
 		this.capitulos = capitulos;
 	}
 
-	@Override
 	public Gerador getGerador() {
 		return GeradorFactory.getGerador(this.formato);
 	}
 
-	@Override
 	public Formato getFormato() {
 		return formato;
 	}
@@ -40,7 +38,6 @@ public class Ebook implements cotuba.plugin.Ebook {
 		return arquivoDeSaida;
 	}
 
-	@Override
 	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}

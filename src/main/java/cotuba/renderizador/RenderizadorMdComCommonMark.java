@@ -2,6 +2,7 @@ package cotuba.renderizador;
 
 import cotuba.application.renderizador.RenderizadorMd;
 import cotuba.domain.Capitulo;
+import cotuba.domain.builder.CapituloBuilder;
 import cotuba.tema.AplicadorTema;
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.Heading;
@@ -51,25 +52,27 @@ public class RenderizadorMdComCommonMark implements RenderizadorMd {
 
 	private Capitulo gerarCapitulo(Path arquivoMD, @Nullable AplicadorTema aplicadorTema) {
 
-		final Capitulo capitulo = new Capitulo();
-		final Node document = this.parsearDocumento(arquivoMD, capitulo);
+		final CapituloBuilder capituloBuilder = new CapituloBuilder();
+		final Node document = this.parsearDocumento(arquivoMD, capituloBuilder);
 
 		try {
 			final HtmlRenderer renderer = HtmlRenderer.builder().build();
-			capitulo.setConteudoHtml(renderer.render(document));
+			final String html = renderer.render(document);
 
 			if (aplicadorTema != null) {
-				aplicadorTema.aplicarTema(capitulo);
+				capituloBuilder.comConteudoHtml(aplicadorTema.getHtmlComTema(html));
+			} else {
+				capituloBuilder.comConteudoHtml(html);
 			}
 
 		} catch (Exception ex) {
 			throw new RuntimeException("Erro ao renderizar para HTML o arquivo " + arquivoMD, ex);
 		}
 
-		return capitulo;
+		return capituloBuilder.build();
 	}
 
-	private Node parsearDocumento(Path arquivoMD, Capitulo capitulo) {
+	private Node parsearDocumento(Path arquivoMD, CapituloBuilder capituloBuilder) {
 		final Parser parser = Parser.builder().build();
 
 		try {
@@ -81,7 +84,7 @@ public class RenderizadorMdComCommonMark implements RenderizadorMd {
 					if (heading.getLevel() == 1) {
 						// capítulo
 						final String tituloDoCapitulo = ((Text) heading.getFirstChild()).getLiteral();
-						capitulo.setTitulo(tituloDoCapitulo);
+						capituloBuilder.comTitulo(tituloDoCapitulo);
 					} else if (heading.getLevel() == 2) {
 						// seção
 					} else if (heading.getLevel() == 3) {
